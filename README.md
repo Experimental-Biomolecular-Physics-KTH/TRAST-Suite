@@ -20,8 +20,8 @@ Stockholm, Sweden
 
 **Contact Information**:  
 For support, inquiries, or access to the software, please contact:  
-- Email: **jpiguet@kth.se**  
-- Website: [KTH Royal Institute of Technology](https://www.kth.se/en)
+- Email: **jpiguet@kth.se**  **haichun@kth.se**
+- Website: [KTH - Applied Physics - Biomolecular Physics](https://www.biomolphysics.kth.se)
 
 ## Introduction
 
@@ -50,6 +50,23 @@ Both manuals follow a similar structure to ensure ease of use and consistency in
 ### Target Audience
 
 This documentation is intended for users with a basic understanding of **TRAST** experiments, data acquisition, and analysis. Whether you are new to the software or an advanced user, these guides provide all the necessary information to ensure successful use of both **TriIm** and **TriFit**.
+
+---
+
+### Installation
+
+Running **TriIm** requires **Matlab 2013b** to **2015b**.
+Running **TriFit** requires **Matlab 2019b** to **last**.
+
+The software can be installed via GitHub after requesting access from **jpiguet@kth.se**:
+
+```bash
+$ git clone https://gitr.sys.kth.se/jpiguet/TRAST.git
+```
+
+The resulting folder should then be added to the **Matlab** path.
+
+---
 
 
 ## TriIm (TRAST Imaging Software) v3.5 Documentation
@@ -80,22 +97,6 @@ The following is a non-exhaustive list of the current features of **TriIm 3.4**:
     - Excitation efficiency.
     - Detection.
     - Dye features (lifetime, cross-section at the laser's wavelength).
-
----
-
-### Installation
-
-Running **TriIm** requires **Matlab 2013b** to **2015b**.
-
-The software can be installed via GitHub after requesting access from **jpiguet@kth.se**:
-
-```bash
-$ git clone https://gitr.sys.kth.se/jpiguet/TRAST.git
-```
-
-The resulting folder should then be added to the **Matlab** path.
-
-
 
 ---
 
@@ -210,8 +211,6 @@ This is the core of **TRAST** experiments.
 8. **Pre-exposures (H)**  
    Use with caution if dyes accumulate on surfaces.
 
----
-
 #### Panel 1 – Camera Control
 
 ![TRAST Camera Control](images/TriIm_img6.png)
@@ -257,6 +256,7 @@ Displays the camera image, background, or the first reference image. Can support
 #### Panel 4 – Data Display
 Shows current measurement data. Limited functionality for viewing the **TRAST curve** during acquisition.
 
+---
 
 ### Running Experiment
 
@@ -288,24 +288,53 @@ Shows current measurement data. Limited functionality for viewing the **TRAST cu
 ## TriFit 3.4 Manual
 **Author**: Haichun Liu
 
-### I. Load Data
+### About
+
+The **TriFit** subroutine contains a **GUI** and all functions necessary for **TRAST** data analysis.
+
+**TriIm** supports the **Windows operating system** and **Matlab 2019b**. Some components of the system may not work with earlier versions of **Matlab**.
+
+### Features
+
+The following is a non-exhaustive list of the current features of **TriFit 3.5**:
+- **GUI** with all necessary functions for data analysis.
+   - A ROI selector
+   - An excitation beam profiler
+   - TRAST data computation module
+   - Fitting function for TRAST data
+   - Results export functions
+   - User Macros for metadata management
+
+---
+
+### Usage
+
+#### I. Load Data
 
 1. **Load Raw Data**  
    In the **Data** section, select the folder containing the data to be analyzed. All files with the suffix **.trast** will be loaded.
+
+   ![TRAST Load Data](images/TriFit_img1.png)
 
 2. **Load Data to Processing Zone**  
    Select the files to be analyzed and click the **v** button to load data into the processing zone.  
    - Under **Settings**, choose **Group files when loading** → **Based on file index**. Files measured under the same condition will be averaged and saved with the suffix **.fit**.
 
+   ![TRAST Add to Processing Zone](images/TriFit_img2.png)
+
 3. **Processing Zones**  
    There are five processing zones available. Data from different experiments can be placed in different zones.  
-   - Data loaded into the processing zone can be removed by clicking the remove button.
+   - Data loaded into the processing zone can be removed by clicking the remove (^) button.
 
 ---
 
-### II. Select the ROI (Region of Interest)
+#### II. Select the ROI (Region of Interest)
 
 1. After loading the data, define the **ROI** by clicking the **ROI Editor** button.
+
+![TRAST Load ROI Editor](images/TriFit_img3.png)
+
+![TRAST ROI Editor](images/TriFit_img4.png)
 
 2. In the **ROI Editor GUI**:
    - Under **Region** (upper left corner), select region selection tools (e.g., **New Rectangle**: Ctrl+1, **New Ellipse**: Ctrl+2, **New Polygon**: Ctrl+3).  
@@ -320,32 +349,56 @@ Shows current measurement data. Limited functionality for viewing the **TRAST cu
 
 ---
 
-### III. Excitation Beam Profile Simulation
+#### III. Excitation Beam Profile Simulation
 
 1. This should be done with an image measured under conditions without prominent dark state populations (e.g., low excitation power, no significant dark state population).
    
 2. In **Model**, click **Add** and select **Proportional**.
 
+![TRAST Beam Model](images/TriFit_img5.png)
+
 3. In **Simulation**, choose **3D** for **Beam Shape** and **None** for **Averaging**.
+
+![TRAST Beam Simulation](images/TriFit_img6.png)
 
 4. In **Grid**, click **Select Center** or **Find the Center** to define the laser beam centroid. The x and y coordinates will be highlighted.
 
-5. Click **Apply to Selected** to apply the generated coordinates.  
-   - Set initial values for **wax** and **way** in **Beam Profile (1/e² radius)** (typically around 18 µm).  
+![TRAST Beam Grid](images/TriFit_img7.png)
+
+![TRAST Beam Grid Center](images/TriFit_img8.png)
+
+   - Click **Apply to Selected** to apply the generated coordinates.  
+
+5. Set initial values for **wax** and **way** in **Beam Profile (1/e² radius)** (typically around 18 µm).
+
+![TRAST Beam Fit Init](images/TriFit_img9.png)
+
    - Click **Apply to Selected** again to use these values in subsequent steps.
 
-6. In **Grid Editor**, set the grid values:
+6. Go to **Grid Editor**
+
+7. In **Grid Selector** GUI, set the grid values:
    - Typical values: **rx = 40**, **dx = 1**, **ry = 40**, **dy = 1**, **rz = 100**, **dz = 0.1**.
+
+   ![TRAST Beam Fit Init](images/TriFit_img11.png)
+
    - Click **Recalc** to calculate the grid and save it by clicking **Save Grid**.
 
-7. Select the **Proportional** model and **3D** beam shape. Use **None** for **Averaging**.
+   ![TRAST Beam Fit Init](images/TriFit_img12.png)
+
+- Click **Apply to Selected** to apply the excitation profile to other data files.
+
+8. Select the **Proportional** model and **3D** beam shape. Use **None** for **Averaging**.
 
 8. Select **Weighted Star** and click **Fit Profile** to return the most approximate excitation profile.  
    - Click **Apply to Selected** to apply the excitation profile to other data files.
 
 ---
 
-### IV. Data Corrections Before Fitting with a Photophysical Model
+#### IV. Data Corrections Before Fitting with a Photophysical Model
+
+
+![TRAST Drift](images/TriFit_img13.png)
 
 1. **Drift Interpolation**  
    Use **piecewise_linear** for the whole file to correct for photobleaching.
@@ -358,7 +411,7 @@ Shows current measurement data. Limited functionality for viewing the **TRAST cu
 
 ---
 
-### V. TRAST Curves Fitting with a Photophysical Model
+#### V. TRAST Curves Fitting with a Photophysical Model
 
 1. **Select Photophysical Model**  
    Choose a photophysical model (e.g., **Exponential_1**) for the current fluorophore.
@@ -366,17 +419,22 @@ Shows current measurement data. Limited functionality for viewing the **TRAST cu
 2. **Set Initial Rates**  
    Click **Set Init Rates** to open the **Rate Editor** and set the initial values for parameters.
 
-3. **Fix or Global Parameters**  
+   ![TRAST Rate Editor](images/TriFit_img14.png)
+
+   - **Fix or Global Parameters**  
    Tick **Fix** to fix a parameter value or **Global** to apply it across all files being fitted.
 
-4. **Lifetime Settings**  
+   - **Lifetime Settings**  
    Tick **Lifetime from Sample Metadata** to use pre-measured lifetime or **Fluorescence Decay Correction** to use **IRF** for lifetime measurement.
 
-5. **Averaging and Normalization**  
+3. **Averaging and Normalization**  
    Select **ROI Average** for **Averaging** and **Norm to 1** for **Norm Mode** to normalize the TRAST curve.
 
-6. **Fit Algorithm**  
-   Select **trust-region-reflective** for the fitting algorithm.  
+4. **Fit Algorithm**  
+   
+   ![TRAST Fit Algorithm](images/TriFit_img15.png)
+
+   - Select **trust-region-reflective** for the fitting algorithm.  
    - Set **TolFun** and **TolX** to define stopping criteria.
    - Set **MaxIter** for the maximum number of iterations (typically 1000).
 
@@ -388,9 +446,14 @@ Shows current measurement data. Limited functionality for viewing the **TRAST cu
 8. **View Fitted Rates**  
    Tick different options to control the displayed items (e.g., **Legend**, **Residuals**) in the graph.
 
+   ![TRAST Fit Results](images/TriFit_img16.png)
+
+9. **New Photophysical Models**
+   The folder “+TriModels” contains all the photophysical models. New photophysical models can be made by creating new Matlab codes in this folder. Afte the creation, the new model is available in “Model”.
+
 ---
 
-### VI. Troubleshooting
+#### VI. Troubleshooting
 
 1. **No Data for Some TRAST Measurements**  
    This could be due to poor data quality. After selecting an ROI, the **TRAST** curve is generated from the raw images. If the data quality in the ROI is poor, the **TRAST** curve cannot be calculated correctly. In this case, review the individual data files related to the "No data" issue.
